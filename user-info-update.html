@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    이름 :<span id="uiName"></span><br>
+    아이디 :<span id="uiId"></span><br>
+    비번  :<span id="uiPwd"></span><br>
+    <button onclick="updateUser()">확인</button>
+    <button onclick="">취소</button>
+    <script>
+    async function addUser(){
+        const data={
+            uiName :document.querySelector('#uiName').value,
+            uiId :document.querySelector('#uiId').value,
+            uiPwd :document.querySelector('#uiPwd').value,
+        }
+        const json =JSON.stringify(data);
+        const res =await fetch('http://localhost/user-infos',{
+            method:'PUT',
+            headers :{
+                'content-type':'application/json;charser=UTF-8'
+            },
+
+            body : json
+        });
+    }
+    </script>
+</body>
+</html>

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <input type ="text" id="uiId" placeholder="아이디"><br>
+    <input type ="text" id="uiPwd" placeholder="비밀번호"><br>
+
+    <script>
+        async function login(){
+            const data ={
+                uiId :document.querySelector('#uiId').value,
+                uiPwd :document.querySelector('#uiPwd').value
+            }
+            const json =JSON.stringify(data);
+            const res =await fetch('http://localhost/login',{
+                method :'POST',
+                headers :{
+                    'Content-Type' :'application/json;charset=UTF-8'
+                },
+                body :json
+            });
+            const result =await res.text();
+            if(result){
+                const user =JSON.parse(result);
+                alert(`${user.uiName}님 반갑습니다.`);
+            }else {
+                alert('아이디나 비밀번호를 확인해 주세요 ');
+            }
+        }
+        
+        localStorage.setItem('name','이보성 신 ');
+        location.href='/check.html';
+    </script>
+    
+</body>
+</html>

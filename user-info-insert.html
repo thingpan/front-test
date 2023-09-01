@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    이름:<input type ="text" id="uiName"><br>
+    아이디:<input type ="text" id="uiId" onchange="checkId(this)"><br>
+    비밀번호:<input type ="password" id="uiPwd"><br>
+    <button onclick="addUser()">회원등록</button>
+    <script>
+      
+        async function addUser(){
+            const data={
+                uiName :document.querySelector('#uiName').value,
+                uiId :document.querySelector('#uiId').value,
+                uiPwd :document.querySelector('#uiPwd').value,
+            }
+            const json =JSON.stringify(data);
+            const res =await fetch('http://localhost/user-infos',{
+                method:'POST',
+                headers :{
+                    'content-type':'application/json;charset=UTF-8'
+                },
+                body : json
+            });
+            const result  =await res.text();
+            if(result ==='1'){
+                alert('정상등록');
+                location.href='/user-infos.html';
+            }
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    번호 :<span id="uiNum"></span><br>
+    이름 :<span id="uiName"></span><br>
+    아이디 :<span id="uiId"></span><br>
+    비번  :<span id="uiPwd"></span><br>
+    <button onclick="location.href='user-info-update.html'">수정</button>
+    <button onclick="deleteUser()">삭제</button>
+    <script>
+            const url =new URL(location.href);
+            const param =url.searchParams
+            const uiNum=param.get('uiNum');
+        async function deleteUser(){
+            const res = await fetch(`http://localhost/user-infos/${uiNum}`,
+            {method: 'DELETE'});
+            const isDelete =await res.text();
+            if(isDelete ==='1'){
+                alert('삭제완료');
+            location.href='/user-infos.html';
+            }
+        }
+        window.addEventListener('load',async function(){
+     
+            const res = await fetch(`http://localhost/user-infos/${uiNum}`);
+            const userinfo= await res.json();
+            for(const key in userinfo){
+                if(document.querySelector(`#${key}`)){
+                    document.querySelector(`#${key}`).innerText=userinfo[key];
+                }
+            }
+        })
+    </script>
+</body>
+</html>
